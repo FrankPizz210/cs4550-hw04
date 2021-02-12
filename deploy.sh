@@ -6,7 +6,14 @@ export PORT=4790
 export NODEBIN=`pwd`/assets/node_modules/.bin
 export PATH="$PATH:$NODEBIN"
 
-echo "Building..."
+echo "Building..."config :practice, PracticeWeb.Endpoint,
+  url: [host: "hw04.frankpizz10.net", port: 80],
+  cache_static_manifest: "priv/static/cache_manifest.json"
+
+# Do not print debug messages in production
+config :logger, level: :info
+
+import_config "prod.secret.exs"
 
 mix deps.get
 mix compile

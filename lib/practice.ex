@@ -17,9 +17,32 @@ defmodule Practice do
   end
 
   def factor(x) do
-    # Maybe delegate this too.
-    [1,2,x]
+    y = Integer.to_string(x)
+    {num, ""} = Integer.parse(y)
+    factor_help(num, [], 2)
+  end
+
+  def factor_help(num, acc, divisor) do
+    if divisor == num do
+      factors = [divisor | acc]
+      facts = Enum.reverse(factors)
+      facts
+   else
+      if num == 2 do
+        [2 | acc]
+      else
+        if rem(num, divisor) == 0 do
+          factor_help(div(num,divisor), [divisor | acc], divisor)
+        else
+          factor_help(num, acc, divisor+1)
+        end
+      end
+    end
   end
 
   # TODO: Add a palindrome? function.
+  def palindrome(str) do
+    reverse_str = String.downcase(str) |> String.reverse
+    String.downcase(str) === reverse_str
+  end
 end
